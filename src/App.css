@@ -1,0 +1,47 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 50px;
+  padding: 5px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.doc {
+  position: relative;
+  padding: 3em 1em 1em;
+  border: 0px solid #d8d8d8;
+}
+.doc > .container .row {
+margin-bottom: 1rem;
+}
+
+.p-2 {
+padding: .5rem!important;
+}
+.wp-50 {
+  width: 50%;
+}
+.ta-left {
+  text-align: left
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
