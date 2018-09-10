@@ -26,12 +26,12 @@ const Todo = (props) => {
 }
 
 const TodoList = (props) => {
-  const { todos, handleTodoClicked } = props;
+  const { todos, handleTodoClicked, handleClearActiveList, handleDeleteActiveList } = props;
   const todosDone = todos.filter(t => t.done).length
   
   return <div className="tour-fourth">
     <Progress className="tour-fourth-1" animated color="success" value={(todosDone / todos.length) * 100}>
-        {todosDone > 0 && (todosDone / todos.length) * 100 + "%"}
+        {todosDone > 0 && ((todosDone / todos.length) * 100).toFixed(2) + "%"}
       </Progress>
       <ListGroup flush className="ta-left">
         {todos && todos.map(todo => (
@@ -43,10 +43,14 @@ const TodoList = (props) => {
           ))}
       </ListGroup>
     <div className="tour-fourth-2 p-2">
-        <Button outline className="wp-50" color="danger" size="sm">
+        <Button outline className="wp-50" color="danger" size="sm" onClick={() => {
+                  handleClearActiveList()
+                }}>
           Clear
         </Button>
-        <Button className="wp-50" color="danger" size="sm">
+        <Button className="wp-50" color="danger" size="sm" onClick={() => {
+                  handleDeleteActiveList()
+                }}>
           Delete
         </Button>
       </div>

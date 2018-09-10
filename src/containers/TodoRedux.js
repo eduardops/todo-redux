@@ -5,10 +5,13 @@ import TodoForm from "../components/TodoForm";
 import Lists from "../components/Lists";
 import { connect } from "react-redux";
 import { changeActiveList, addTodo, addList, completeTodo, uncompleteTodo} from "../redux/store";
+import { clearList, deleteList } from "../redux/store";
 
 class TodoRedux extends Component {
   handleOnChangeFormInput(todo) {
-    this.props.addTodo(todo, this.props.activeList.id);
+    if(this.props.activeList){
+      this.props.addTodo(todo, this.props.activeList.id);
+    }
   }
 
   handleAddTabClick(name) {
@@ -18,6 +21,17 @@ class TodoRedux extends Component {
     if (checked) this.props.completeTodo(todoId, this.props.activeList.id);
     else this.props.uncompleteTodo(todoId, this.props.activeList.id);
   }
+  handleClearActiveList() {
+    console.log('test')
+    this.props.clearList( this.props.activeList.id)
+  }
+
+  handleDeleteActiveList() {
+    console.log('test 2')
+    this.props.deleteList( this.props.activeList.id)
+  }
+  
+
   render() {
     const {
       lists,
@@ -32,7 +46,7 @@ class TodoRedux extends Component {
         <Row>
           <Col sm="12" md={{ size: 8, offset: 2 }}>
           <Progress className="tour-fifth" animated color="success" value={(completed / total) * 100}>
-            {(completed) > 0 && (completed / total) * 100 + "%"}
+            {(completed) > 0 && ((completed / total) * 100).toFixed(2) + "%"}
             </Progress>
           </Col>
         </Row>
@@ -46,7 +60,14 @@ class TodoRedux extends Component {
         <Row>
           <Col sm="12" md={{ size: 8, offset: 2 }}>
             <Card className="p-2">
-              <Lists activeTab={activeList ? activeList.id : null} lists={lists} todos={todos} handleAddTabClick={this.handleAddTabClick.bind(this)} handleTodoClicked={this.handleTodoClicked.bind(this)} handleChangeActiveList={changeActiveList} />
+              <Lists activeTab={activeList ? activeList.id : null} 
+                lists={lists} 
+                todos={todos} 
+                handleAddTabClick={this.handleAddTabClick.bind(this)} 
+                handleTodoClicked={this.handleTodoClicked.bind(this)} 
+                handleChangeActiveList={changeActiveList}
+                handleClearActiveList={this.handleClearActiveList.bind(this)}
+                handleDeleteActiveList={this.handleDeleteActiveList.bind(this)} />
             </Card>
           </Col>
         </Row>
@@ -67,7 +88,9 @@ const mapDispatchToProps = {
   addTodo,
   addList,
   completeTodo,
-  uncompleteTodo
+  uncompleteTodo,
+  clearList, 
+  deleteList 
 };
 
 export default connect(
